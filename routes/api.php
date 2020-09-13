@@ -18,3 +18,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get('rest', 'rest\restController@rest');
+Route::get('rest/{id}', 'rest\restController@restById');
+Route::post('rest', 'rest\restController@addRest');
