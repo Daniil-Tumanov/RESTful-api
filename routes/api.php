@@ -17,6 +17,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('rest', 'rest\restController@rest');
-Route::get('rest/{id}', 'rest\restController@restById');
-Route::post('rest', 'rest\restController@addRest');
+Route::get('dishes', 'rest\restController@dishes');
+Route::get('dishes/{id}', 'rest\restController@dishById');
+
+Route::post('dishes', 'rest\restController@addDish');
+Route::post('dishes/{id}', 'rest\restController@editDish');
+Route::delete('dishes/{dishes}', 'rest\restController@deleteDish');
