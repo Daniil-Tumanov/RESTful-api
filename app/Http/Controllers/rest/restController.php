@@ -52,7 +52,6 @@ class restController extends Controller
         return response()->json(['status code' => 201, 'status text' => 'Successful creation', 'status' => 'true', 'message'=> $dishes->id], 201);
     }
 
-
     public function editDish(Request $req, $id){
         $dishes = RestModel::find($id);
         if(is_null($dishes)){
