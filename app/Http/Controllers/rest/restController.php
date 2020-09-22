@@ -12,7 +12,7 @@ class restController extends Controller
     public function dishes(){
         return response()->json(['status code' => 200,'status text' => 'List dishes','Dishes' => RestModel::get()], 200);
     }
-    
+
     public function dishById($id){
         $dishes = RestModel::find($id);
         if(is_null($dishes)){
