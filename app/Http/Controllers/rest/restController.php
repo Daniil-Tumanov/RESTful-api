@@ -36,7 +36,7 @@ class restController extends Controller
         if ($req->hasFile('img')) {
             $image = $req->file('img');
             $name = $image->getClientOriginalName();                    
-            $destinationPath = public_path('/images');
+            $destinationPath = public_path('/dishes_images');
             $image->move($destinationPath, $name);
 
             $dishes = new RestModel();
@@ -67,6 +67,14 @@ class restController extends Controller
             return response()->json(['status code' => 404, 'status text' => 'Dish not found', 'message' => 'Dish not found'], 404);
         }
         $dishes->where('id', $id)->delete();
-        return response()->json(['status code' => 201,'status text' => "Successful delete", 'message' => 'Dish not found'], 201);
+        return response()->json(['status code' => 201,'status text' => 'Successful delete', 'status' => true], 201);
+    }
+
+    public function searchByTag($tag){
+        $search = RestModel::where('tags', 'like', "%{$tag}%")->get();
+        if($search->isEmpty()){
+        return response()->json(['status code' => 404,'status text' => 'Tags not found'], 404);
+        }
+        return response()->json(['status code' => 200,'status text' => 'Found dishes', 'dishes' => $search], 200);
     }
 }
