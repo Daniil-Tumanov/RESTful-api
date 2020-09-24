@@ -49,7 +49,7 @@ class restController extends Controller
 
             $dishes->save();
         }   
-        return response()->json(['status code' => 201, 'status text' => 'Successful creation', 'status' => 'true', 'message'=> $dishes->id], 201);
+        return response()->json(['status code' => 201, 'status text' => 'Successful creation', 'status' => 'true', 'dish_id'=> $dishes->id], 201);
     }
 
     public function editDish(Request $req, $id){
@@ -57,8 +57,19 @@ class restController extends Controller
         if(is_null($dishes)){
             return response()->json(['status code' => 400, 'status text' => 'Editing error', 'status' => 'false', 'message' => 'Dish not found'], 404);
         }
+        if ($req->hasFile('img')) {
+            $image = $req->file('img');
+            $name = $image->getClientOriginalName();                    
+            $destinationPath = public_path('/dishes_images');
+            $image->move($destinationPath, $name);
+
+            $dishes->img = $name;
+
+            $dishes->save();
+            
+        }   
         $dishes->where('id', $id)->update($req->all());
-        return response()->json(['status code' => 201, 'status text:'=>'View dish', 'Dish' => $dishes], 200);
+        return response()->json(['status code' => 201, 'status text:'=>'Successful editing', 'Dish' => RestModel::find($id)], 200);
     }
 
     public function deleteDish($id){

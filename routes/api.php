@@ -24,6 +24,4 @@ Route::post('dishes', 'rest\restController@addDish');
 Route::post('dishes/{id}', 'rest\restController@editDish');
 Route::delete('dishes/{id}', 'rest\restController@deleteDish');
 
-Route::post('dishes/{id}/comments', 'rest\restController@postComment');
-Route::delete('dishes/{id}/comments/{id_comment}', 'rest\restController@deleteComment');
 Route::get('dishes/tags/{tags}', 'rest\restController@searchByTag');
