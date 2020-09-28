@@ -4,7 +4,6 @@ namespace App\Http\Controllers\rest;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Comments;
 use App\Models\RestModel;
 use App\Models\CommentModel;
 use Validator;
@@ -17,10 +16,11 @@ class restController extends Controller
 
     public function dishById($id){
         $dishes = RestModel::find($id);
+        $comments = CommentModel::where('id', $id)->get();
         if(is_null($dishes)){
             return response()->json(['status code' => 404, 'status text' => 'Dish not found', 'message' => 'Dish not found'], 404);
         }
-        return response()->json(['status code'=> 200, 'status text'=>'View dish', 'Dish'=>RestModel::find($id)], 200);
+        return response()->json(['status code'=> 200, 'status text'=>'View dish', 'Dish' => $dishes, 'Comment' => $comments], 200);
     }
 
     public function addDish(Request $req){
@@ -35,6 +35,7 @@ class restController extends Controller
         if($validator->fails()){
             return response()->json($validator->errors(), 400);
         }
+
         if ($req->hasFile('img')) {
             $image = $req->file('img');
             $name = $image->getClientOriginalName();                    
@@ -92,24 +93,40 @@ class restController extends Controller
     }
 
     public function postComment(Request $req, $id){
-
-        $comment = CommentModel::create([
-        'author' => $req->author,
-        'comment' => $req->comment,
-        'ID_Dish' => $id
-        ]);
-
-        $comment->save();
-    
-        return response()->json(['status code' => 201, 'status text:'=>'Successful creation', 'status' => 'true'], 201);
-    }
-
-    public function getComment($id, $id_comment){
         $dishes = RestModel::find($id);
-        $comments = CommentModel::find($id_comment);
         if(is_null($dishes)){
             return response()->json(['status code' => 404, 'status text' => 'Dish not found', 'message' => 'Dish not found'], 404);
         }
-        return response()->json(['status code'=> 200, 'status text'=>'View dish', 'Dish'=>CommentModel::find($id_comment)], 200);
+        $rules = [
+            'author' => 'required',
+            'comment' => 'required|min:3|max:255'
+        ];
+        $validator = Validator::make($req->all(), $rules);
+        if($validator->fails()){
+            return response()->json($validator->errors(), 400);
+        }
+        $comment = CommentModel::create([
+        'author' => $req->author,
+        'comment' => $req->comment,
+        'id' => $id
+        ]);
+
+        $comment->save();
+
+        return response()->json(['status code' => 201, 'status text:'=>'Successful creation', 'status' => 'true'], 201);
+    }
+    
+    public function deleteComment($id, $id_comment){
+        $dishes = RestModel::find($id);
+        if(is_null($dishes)){
+            return response()->json(['status code' => 404, 'status text' => 'Dish not found', 'message' => 'Dish not found'], 404);
+        }
+        $comment = CommentModel::select('id_comment')->from('comments')->where('id_comment', $id_comment)->get();
+        
+        if($comment->isEmpty()){
+            return response()->json(['status code' => 404, 'status text' => 'Comment not found', 'message' => 'Comment not found'], 404);
+        }
+        $comment = CommentModel::where('ID_comment', $id_comment)->delete();
+        return response()->json(['status code' => 201,'status text' => 'Successful delete', 'status' => true], 201);
     }
     }

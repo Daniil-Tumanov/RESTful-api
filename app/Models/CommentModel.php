@@ -12,8 +12,9 @@ class CommentModel extends Model
 
     protected $fillable = [
         'ID_comment',
+        'datatime',
         'author',
         'comment',
-        'ID_Dish'
+        'id'
     ];
 }
