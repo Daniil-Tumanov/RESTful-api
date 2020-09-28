@@ -21,3 +21,17 @@ class RestModel extends Model
         'img'
     ];
 }
+
+class CommentModel extends Model
+{
+    protected $table = "comments";
+
+    public $timestamps = false;
+
+    protected $fillable = [
+        'ID_comment',
+        'author',
+        'comment',
+        'ID_dish'
+    ];
+}
