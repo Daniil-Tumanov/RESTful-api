@@ -11,7 +11,7 @@ use Validator;
 class restController extends Controller
 {
     public function dishes(){
-        return response()->json(['status code' => 200,'status text' => 'List dishes','Dishes' => RestModel::get()], 200);
+        return RestModel::all();
     }
 
     public function dishById($id){
