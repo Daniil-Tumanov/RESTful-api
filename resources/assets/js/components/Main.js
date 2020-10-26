@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import RestModel from './Dish';
 
 /* Main Component */
 class Main extends Component {
@@ -8,7 +9,8 @@ class Main extends Component {
     super();
     //Initialize the state in the constructor
     this.state = {
-        RestModel: []
+        RestModel: [],
+        currentDish: null
     }
   }
   /*componentDidMount() is a lifecycle method
@@ -72,12 +74,13 @@ render() {
          <div>
            <div style= {mainDivStyle}>
              <div style={divStyle}>
-                 <h3> All products </h3>
+                 <h3> All dishes </h3>
                    <ul>
                      { this.renderDishes() }
                    </ul> 
  
              </div> 
+             <RestModel dish={this.state.currentDish} />
            </div>
                
          </div>
