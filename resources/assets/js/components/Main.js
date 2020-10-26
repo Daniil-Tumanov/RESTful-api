@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import RestModel from './Dish';
+import AddDish from './addDish';
 
 /* Main Component */
 class Main extends Component {
@@ -12,6 +13,8 @@ class Main extends Component {
         RestModel: [],
         currentDish: null
     }
+
+    this.handleAddDish = this.handleAddDish.bind(this);
   }
   /*componentDidMount() is a lifecycle method
    * that gets called after the component is rendered
@@ -52,6 +55,30 @@ class Main extends Component {
     this.setState({currentDish:dish});
 
 }
+
+handleAddDish(dish) {
+  dish.cost = Number(dish.cost);
+  fetch( '/api/dishes', {
+      method:'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      
+      body: JSON.stringify(dish)
+  })
+  .then(response => {
+      return await response.json();
+  })
+  .then( data => {
+     
+      this.setState((prevState)=> ({
+          dishes: prevState.dishes.concat(data),
+          currentDish: data
+      }))
+  })
+}  
+
 render() {
 
     const mainDivStyle =  {
@@ -81,6 +108,7 @@ render() {
  
              </div> 
              <RestModel dish={this.state.currentDish} />
+             <AddDish onAdd={this.handleAddDish} />
            </div>
                
          </div>
