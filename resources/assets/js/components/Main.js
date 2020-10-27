@@ -68,7 +68,7 @@ handleAddDish(dish) {
       body: JSON.stringify(dish)
   })
   .then(response => {
-      return await response.json();
+      return response.json();
   })
   .then( data => {
      
@@ -108,9 +108,8 @@ render() {
  
              </div> 
              <RestModel dish={this.state.currentDish} />
-             <AddDish onAdd={this.handleAddDish} />
            </div>
-               
+           <AddDish onAdd={this.handleAddDish} />
          </div>
        
      );

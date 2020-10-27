@@ -42,8 +42,8 @@
     </ul>
     
     <form class="form-inline my-2 my-lg-0">
-      <button type="button" class="btn btn-primary">Вход</button>
-      <button class="btn btn-outline-success my-2 my-sm-0">Регистрация</button>
+      <button type="button" class="btn btn-primary">Login</button>
+      <button class="btn btn-outline-success my-2 my-sm-0">Sign in</button>
     </form>
   </div>
 </nav>

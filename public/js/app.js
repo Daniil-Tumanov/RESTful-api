@@ -32721,9 +32721,9 @@ var Main = function (_Component) {
 
         _this.state = {
             RestModel: [],
-            currentDish: null,
-            prevState: null
+            currentDish: null
         };
+
         _this.handleAddDish = _this.handleAddDish.bind(_this);
         return _this;
     }
@@ -32783,10 +32783,8 @@ var Main = function (_Component) {
             var _this4 = this;
 
             dish.cost = Number(dish.cost);
-            /*Fetch API for post request */
             fetch('/api/dishes', {
                 method: 'post',
-                /* headers are important*/
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
@@ -32799,12 +32797,11 @@ var Main = function (_Component) {
 
                 _this4.setState(function (prevState) {
                     return {
-                        dishes: _this4.dishes.concat(data),
+                        dishes: prevState.dishes.concat(data),
                         currentDish: data
                     };
                 });
             });
-            //update the state of products and currentProduct
         }
     }, {
         key: 'render',
@@ -32844,9 +32841,9 @@ var Main = function (_Component) {
                             this.renderDishes()
                         )
                     ),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Dish__["a" /* default */], { dish: this.state.currentDish }),
-                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__addDish__["a" /* default */], { onAdd: this.handleAddDish })
-                )
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__Dish__["a" /* default */], { dish: this.state.currentDish })
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__addDish__["a" /* default */], { onAdd: this.handleAddDish })
             );
         }
     }]);
@@ -62856,6 +62853,16 @@ var RestModel = function RestModel(_ref) {
             ' ',
             dish.datatime
           )
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'button',
+          { type: 'button', 'class': 'btn btn-secondary btn-block' },
+          '\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C'
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'button',
+          { type: 'button', 'class': 'btn btn-danger btn-block' },
+          '\u0423\u0434\u0430\u043B\u0438\u0442\u044C'
         )
       )
     )
@@ -62937,16 +62944,10 @@ var AddDish = function (_Component) {
       var _this2 = this;
 
       var divStyle = {
-        position: 'absolute',
-        left: '35%',
-        top: '60%',
+        position: 'relative',
         flexDirection: 'space-between',
 
         marginLeft: '30px'
-      };
-
-      var inputStyle = {
-        margin: '0px 10px 0px 10px'
       };
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
@@ -62963,54 +62964,86 @@ var AddDish = function (_Component) {
             'form',
             { onSubmit: this.handleSubmit },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'label',
-              null,
-              'Title:',
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { style: inputStyle, type: 'text', onChange: function onChange(e) {
-                  return _this2.handleInput('title', e);
-                } })
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'label',
-              null,
-              'Description:',
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { style: inputStyle, type: 'text', onChange: function onChange(e) {
-                  return _this2.handleInput('description', e);
-                } })
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'label',
-              null,
-              'Composition:',
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { style: inputStyle, type: 'text', onChange: function onChange(e) {
-                  return _this2.handleInput('composition', e);
-                } })
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'label',
-              null,
-              'Cost:',
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { style: inputStyle, type: 'number', onChange: function onChange(e) {
-                  return _this2.handleInput('cost', e);
-                } })
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'label',
-              null,
-              'Tags:',
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { style: inputStyle, type: 'text', onChange: function onChange(e) {
-                  return _this2.handleInput('tags', e);
-                } })
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-              'label',
-              null,
-              'Image:',
-              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { style: inputStyle, type: 'file', onChange: function onChange(e) {
-                  return _this2.handleInput('img', e);
-                } })
-            ),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { style: inputStyle, type: 'submit', value: 'Submit' })
+              'div',
+              { 'class': 'form-row' },
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { 'class': 'col-sm-10' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'label',
+                  null,
+                  'Title:',
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', 'class': 'form-control', onChange: function onChange(e) {
+                      return _this2.handleInput('title', e);
+                    } })
+                )
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { 'class': 'col-sm-10' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'label',
+                  null,
+                  'Description:',
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', 'class': 'form-control', onChange: function onChange(e) {
+                      return _this2.handleInput('description', e);
+                    } })
+                )
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { 'class': 'col-sm-10' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'label',
+                  null,
+                  'Composition:',
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', 'class': 'form-control', onChange: function onChange(e) {
+                      return _this2.handleInput('composition', e);
+                    } })
+                )
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { 'class': 'col-sm-10' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'label',
+                  null,
+                  'Cost:',
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'number', 'class': 'form-control', onChange: function onChange(e) {
+                      return _this2.handleInput('cost', e);
+                    } })
+                )
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { 'class': 'col-sm-10' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'label',
+                  null,
+                  'Tags:',
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'text', 'class': 'form-control', onChange: function onChange(e) {
+                      return _this2.handleInput('tags', e);
+                    } })
+                )
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { 'class': 'col-sm-10' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                  'label',
+                  null,
+                  'Image:',
+                  __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'file', 'class': 'form-control-file', onChange: function onChange(e) {
+                      return _this2.handleInput('img', e);
+                    } })
+                )
+              ),
+              __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { 'class': 'col-sm-10' },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'submit', 'class': 'btn btn-primary', value: 'Submit' })
+              )
+            )
           )
         )
       );

@@ -42,60 +42,64 @@ class AddDish extends Component {
 
   render() {
     const divStyle = {
-      position: 'absolute',
-      left: '35%',
-      top: '60%',
+      position: 'relative',
       flexDirection: 'space-between',
       
       marginLeft: '30px'
-    }
-    
-    const inputStyle = {
-      margin: '0px 10px 0px 10px'
     }
     return(
       <div> 
        
         <div style={divStyle}> 
          <h2> Add new dish </h2>
-        {/*when Submit button is pressed, the control is passed to 
-         *handleSubmit method 
-         */}
         <form onSubmit={this.handleSubmit}>
-
+        <div class="form-row">
+        <div class="col-sm-10">
           <label> 
             Title: 
-            {/*On every keystroke, the handeInput method is invoked */}
-            <input style={inputStyle} type="text" onChange={(e)=>this.handleInput('title',e)} />
+            <input type="text" class="form-control" onChange={(e)=>this.handleInput('title',e)} />
           </label>
+          </div>
           
+          <div class="col-sm-10">
           <label> 
             Description: 
-            <input style={inputStyle}  type="text" onChange={(e)=>this.handleInput('description',e)} />
+            <input  type="text" class="form-control" onChange={(e)=>this.handleInput('description',e)} />
           </label>
-          
+          </div>
+          <div class="col-sm-10">
           <label> 
             Composition: 
-            <input style={inputStyle}  type="text" onChange={(e)=>this.handleInput('composition',e)} />
+            <input  type="text" class="form-control" onChange={(e)=>this.handleInput('composition',e)} />
           </label>
+          </div>
 
+          <div class="col-sm-10">
           <label>
             Cost:
-            <input style={inputStyle}  type="number" onChange={(e)=>this.handleInput('cost', e)}/>
+            <input type="number" class="form-control" onChange={(e)=>this.handleInput('cost', e)}/>
           </label>
+          </div>
 
+          <div class="col-sm-10">
           <label> 
             Tags: 
-            <input style={inputStyle}  type="text" onChange={(e)=>this.handleInput('tags',e)} />
+            <input type="text" class="form-control" onChange={(e)=>this.handleInput('tags',e)} />
           </label>
+          </div>
 
+          <div class="col-sm-10">
           <label> 
             Image: 
-            <input style={inputStyle}  type="file" onChange={(e)=>this.handleInput('img',e)} />
+            <input  type="file" class="form-control-file" onChange={(e)=>this.handleInput('img',e)} />
           </label>
+          </div>
 
-          <input style={inputStyle}  type="submit" value="Submit" />
-        </form>
+          <div class="col-sm-10">
+          <input  type="submit" class="btn btn-primary" value="Submit" />
+          </div>
+          </div>
+            </form>
       </div>
     </div>)
   }

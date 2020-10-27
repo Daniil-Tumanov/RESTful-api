@@ -30,7 +30,10 @@ const RestModel = ({dish}) => {
       <h5 class="card-title"> Price:</h5><p class="card-text">  {dish.cost}₽</p>
       <h5 class="card-title"> Tags:</h5><p class="card-text"> {dish.tags} </p>
       <p class="card-text"><small class="text-muted"> {dish.datatime}</small></p>
+      <button type="button" class="btn btn-secondary btn-block" >Редактировать</button>
+      <button type="button" class="btn btn-danger btn-block">Удалить</button>
     </div>
+    
     </div>
     </div>
   )
